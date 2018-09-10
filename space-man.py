@@ -10,7 +10,8 @@ def load_word():
     secret_word = random.choice(words_list)
     return str(secret_word).rstrip()
 
-blank_list = list('-' * len(load_word()))
+super_secret_word = load_word()
+blank_list = list('-' * len(super_secret_word))
 
 # For all following functions
 # secretWord: string, the random word the user is trying to guess.  This is selected on line 9.
@@ -32,7 +33,7 @@ def get_guessed_word(secret_word, letters_guessed):
     # in the word that the user has not yet guessed, shown an - (hyphen) instead.
     secret_list = list(secret_word)
     guess_letter = input('Pick a letter in the alphabet: ').lower()
-    # verify(guess_letter)
+    verify(guess_letter)
     guesses.append(guess_letter)
     if guess_letter in secret_list:
         index = secret_list.index(guess_letter)
@@ -58,7 +59,7 @@ def spaceman(secret_word):
     # * After each round, you should also display to the user the
     # partially guessed word so far, as well as letters that the
     # user has not yet guessed.
-    print("There are {} letters in the secret word.".format(len(load_word())))
+    print("There are {} letters in the secret word.".format(len(super_secret_word)))
     wrong = 0
     while wrong < 7:
         if is_word_guessed(secret_word, guesses):
@@ -73,9 +74,14 @@ def spaceman(secret_word):
                 print('Rocket Man Launched!')
                 break
 
-# print ()
-# get_guessed_word(load_word(), guesses)
-# is_word_guessed(load_word(), guesses)
-# get_available_letters(guesses)
-spaceman(load_word())
-# print(load_word())
+def verify(input):
+    if input.isdigit():
+        print('Numbers not allowed!')
+        return False
+    elif input in guesses:
+        print('You have already tried that')
+        return False
+    else:
+        return True
+
+spaceman(super_secret_word)
